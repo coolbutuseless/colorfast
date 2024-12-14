@@ -156,6 +156,27 @@ res_int <- bench::mark(
 )
 
 knitr::kable(res_int[,1:5])
+
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Conversion to packed int
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cols <- sample(colors(), 10000, T) 
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# benchmark
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(farver)
+res_int2 <- bench::mark(
+  `{farver}`    = encode_native(cols),
+  `{colorfast}` = col_to_int(cols),
+  check = TRUE
+)
+
+knitr::kable(res_int2[,1:5])
 ```
 </details>
 
@@ -207,6 +228,23 @@ ggplot(res_int) +
     x = NULL,
     y = "Iterations / second",
     title = "Converting 100,000 hexadecimal colors to packed integer colors",
+    subtitle = "Bigger is better"
+  )
+```
+
+
+```{r echo = FALSE, fig.height = 3, fig.width = 8}
+library(ggplot2)
+res_int2$expression <- as.character(res_int2$expression)
+ggplot(res_int2) + 
+  geom_col(aes(expression, `itr/sec`, fill = expression)) + 
+  theme_bw() + 
+  theme(legend.position = 'none') + 
+  scale_fill_manual(values = c('dodgerblue4', 'grey50', 'grey50')) + 
+  labs(
+    x = NULL,
+    y = "Iterations / second",
+    title = "Converting 10,000 named colors to packed integer colors",
     subtitle = "Bigger is better"
   )
 ```

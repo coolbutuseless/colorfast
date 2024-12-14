@@ -90,11 +90,11 @@ res_col <- bench::mark(
 knitr::kable(res_col[,1:5])
 ```
 
-| expression  |     min |  median |    itr/sec | mem_alloc |
-|:------------|--------:|--------:|-----------:|----------:|
-| baseR       |  16.1ms |  16.2ms |   61.52921 |     313KB |
-| {farver}    | 563.1µs | 580.9µs | 1704.53110 |     117KB |
-| {colorfast} | 135.8µs | 151.2µs | 6519.31602 |     156KB |
+| expression  |   min |  median |    itr/sec | mem_alloc |
+|:------------|------:|--------:|-----------:|----------:|
+| baseR       |  16ms |  16.2ms |   61.57898 |     313KB |
+| {farver}    | 565µs | 582.3µs | 1696.85656 |     117KB |
+| {colorfast} | 137µs | 150.4µs | 6553.34407 |     156KB |
 
 ``` r
 
@@ -134,11 +134,11 @@ res_hex <- bench::mark(
 knitr::kable(res_hex[,1:5])
 ```
 
-| expression  |      min | median |   itr/sec | mem_alloc |
-|:------------|---------:|-------:|----------:|----------:|
-| baseR       |   2.87ms | 3.04ms |  326.4886 |    3.05MB |
-| {farver}    | 892.16µs | 1.06ms |  942.9869 |    3.05MB |
-| {colorfast} | 394.46µs |  483µs | 2067.7688 |    1.53MB |
+| expression  |      min |   median |   itr/sec | mem_alloc |
+|:------------|---------:|---------:|----------:|----------:|
+| baseR       |   2.88ms |   3.04ms |  326.2789 |    3.05MB |
+| {farver}    | 919.92µs |   1.04ms |  949.1179 |    3.05MB |
+| {colorfast} | 394.62µs | 485.69µs | 2035.1763 |    1.53MB |
 
 ``` r
 
@@ -168,8 +168,37 @@ knitr::kable(res_int[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 795µs |  843µs | 1178.234 |     397KB |
-| {colorfast} | 422µs |  447µs | 2217.669 |     391KB |
+| {farver}    | 796µs |  847µs | 1176.838 |     397KB |
+| {colorfast} | 422µs |  450µs | 2198.984 |     391KB |
+
+``` r
+
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Conversion to packed int
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cols <- sample(colors(), 10000, T) 
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# benchmark
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(farver)
+res_int2 <- bench::mark(
+  `{farver}`    = encode_native(cols),
+  `{colorfast}` = col_to_int(cols),
+  check = TRUE
+)
+
+knitr::kable(res_int2[,1:5])
+```
+
+| expression  |   min | median |  itr/sec | mem_alloc |
+|:------------|------:|-------:|---------:|----------:|
+| {farver}    | 552µs |  572µs | 1738.074 |    39.1KB |
+| {colorfast} | 134µs |  142µs | 6954.672 |    39.1KB |
 
 </details>
 
@@ -178,3 +207,5 @@ knitr::kable(res_int[,1:5])
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
