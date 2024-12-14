@@ -1,0 +1,216 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(colorfast)
+
+library(tidyr)
+library(ggbeeswarm)
+library(ggplot2)
+library(farver)
+```
+
+# colorfast
+
+<!-- badges: start -->
+![](https://img.shields.io/badge/cool-useless-green.svg)
+[![R-CMD-check](https://github.com/coolbutuseless/colorfast/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/colorfast/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+`{colorfast}` is a package for converting R colors and hexadecimal colors
+to arrays of RGBA values, and packed integer format (suitable for native rasters).
+
+
+### What's in the box
+
+* `col_to_rgb()` a faster version of `col2rgb()` 
+* `col_to_int()` for conversion of colors to packed integer format used 
+  in native rasters (4 bytes for each RGBA color channel are packed into a
+  single R integer)
+
+
+## Installation
+
+You can install from [GitHub](https://github.com/coolbutuseless/colorfast) with:
+
+``` r
+# install.package('remotes')
+remotes::install_github('coolbutuseless/colorfast')
+```
+
+## Example
+
+```{r example}
+library(colorfast)
+
+col_to_rgb(c("hotpink", "#abc", "#aabb99", "#aabb9980"))
+col_to_int(c("hotpink", "#abc", "#aabb99", "#aabb9980"))
+```
+
+
+## Benchmarks
+
+The following benchmarks compare `{colorfast}` to `{farver}` and base R.
+
+| package       | Convert to RGBA array | Convert to packed integer |
+|---------------|-----------------------|---------------------------|
+| Base R        | `col2rgb()`           | N/A                       |
+| `{farver}`    | `decode_colour()`     | `encode_native()`         |
+| `{colorfast}` | `col_to_rgb()`        | `col_to_int()`            |
+
+
+<details>
+<summary>Click to show raw benchmark results</summary>
+
+```{r echo = TRUE}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# R color names
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cols <- sample(colors(), 10000, T)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Check we all agree on the RGB representation
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a1 <- col_to_rgb(cols)
+a2 <- col2rgb(cols, alpha = TRUE)
+a3 <- farver::decode_colour(cols) |> t()
+a3 <- rbind(a3, 255L)
+rownames(a3) <- c('red', 'green', 'blue', 'alpha')
+stopifnot(identical(a1, a2))
+stopifnot(identical(a2, a3))
+
+
+res_col <- bench::mark(
+  `baseR         ` = col2rgb(cols, alpha = TRUE),
+  `{farver}`       = decode_colour(cols),
+  `{colorfast}`    = col_to_rgb(cols),
+  check = FALSE
+)
+knitr::kable(res_col[,1:5])
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# Hex colors
+#
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cols <- sample(colors(), 100000, T) |>
+  col_to_rgb() |>
+  t() |>
+  rgb(maxColorValue = 255)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Check we all agree on the RGB representation
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+a1 <- col_to_rgb(cols)
+a2 <- col2rgb(cols, alpha = TRUE)
+a3 <- farver::decode_colour(cols) |> t()
+a3 <- rbind(a3, 255L)
+rownames(a3) <- c('red', 'green', 'blue', 'alpha')
+stopifnot(identical(a1, a2))
+stopifnot(identical(a2, a3))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# benchmark
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(farver)
+res_hex <- bench::mark(
+  baseR         = col2rgb(cols, alpha = TRUE),
+  `{farver}`    = decode_colour(cols, alpha = TRUE),
+  `{colorfast}` = col_to_rgb(cols),
+  check = FALSE
+)
+knitr::kable(res_hex[,1:5])
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Conversion to packed int
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cols <- sample(colors(), 100000, T) |>
+  col_to_rgb() |>
+  t() |>
+  rgb(maxColorValue = 255)
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# benchmark
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+library(farver)
+res_int <- bench::mark(
+  `{farver}`    = encode_native(cols),
+  `{colorfast}` = col_to_int(cols),
+  check = TRUE
+)
+
+knitr::kable(res_int[,1:5])
+```
+</details>
+
+
+
+```{r echo = FALSE, fig.height = 3, fig.width = 8}
+library(ggplot2)
+res_col$expression <- as.character(res_col$expression)
+ggplot(res_col) + 
+  geom_col(aes(expression, `itr/sec`, fill = expression)) + 
+  theme_bw() + 
+  theme(legend.position = 'none') + 
+  scale_fill_manual(values = c('dodgerblue4', 'grey50', 'grey50')) + 
+  labs(
+    x = NULL,
+    y = "Iterations / second",
+    title = "Speed comparison: {colorfast} vs {farver} vs base",
+    subtitle = "Converting 10,000 named colors to RGBA values"
+  )
+```
+
+
+```{r echo = FALSE, fig.height = 3, fig.width = 8}
+library(ggplot2)
+res_hex$expression <- as.character(res_hex$expression)
+ggplot(res_hex) + 
+  geom_col(aes(expression, `itr/sec`, fill = expression)) + 
+  theme_bw() + 
+  theme(legend.position = 'none') + 
+  scale_fill_manual(values = c('dodgerblue4', 'grey50', 'grey50')) + 
+  labs(
+    x = NULL,
+    y = "Iterations / second",
+    title = "Speed comparison: {colorfast} vs {farver} vs base",
+    subtitle = "Converting 100,000 hexadecimal colors to RGBA values"
+  )
+```
+
+
+```{r echo = FALSE, fig.height = 3, fig.width = 8}
+library(ggplot2)
+res_int$expression <- as.character(res_int$expression)
+ggplot(res_int) + 
+  geom_col(aes(expression, `itr/sec`, fill = expression)) + 
+  theme_bw() + 
+  theme(legend.position = 'none') + 
+  scale_fill_manual(values = c('dodgerblue4', 'grey50', 'grey50')) + 
+  labs(
+    x = NULL,
+    y = "Iterations / second",
+    title = "Speed comparison: {colorfast} vs {farver}",
+    subtitle = "Converting 100,000 hexadecimal colors to RGBA values"
+  )
+```
+
+
+
+

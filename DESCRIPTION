@@ -1,0 +1,22 @@
+Type: Package
+Package: colorfast
+Title: Fast Conversion of R Colors to RGBA values and
+    Native Packed Integer Format
+Version: 1.0.0
+Authors@R: 
+    person("Mike", "Cheng", , "mikefc@coolbutuseless.com", role = c("aut", "cre", "cph"))
+Maintainer: Mike Cheng <mikefc@coolbutuseless.com>
+Description: Color values in R are often represented as strings of hexadecimal
+    colors or named colors.  This package offers fast conversion of 
+    these color representations to either an array of RGBA values
+    or to the packed integer format used in native rasters.  This fast conversion
+    of colors is implemented using an order-preserving minimal perfect hash
+    derived from Majewski et al (1996) 'A Family of Perfect Hashing Methods' 
+    <doi:10.1093/comjnl/39.6.547>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
