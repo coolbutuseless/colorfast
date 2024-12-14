@@ -3,8 +3,8 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Fast conversion of colors-as-strings to a matrix of RGBA integers
 #' 
-#' This is a replacement for \code{grDevices::col2rgb()}, and can be
-#' 100 times faster.
+#' This is a faster replacement for \code{grDevices::col2rgb()} which uses 
+#' a hash lookup of R color names (rather than a linear search).
 #' 
 #' @param col Character vector of color names. Supports all R color names
 #'        (e.g. "red", "hotpink") and hex colors of the form:  "#RRGGBBAA", 

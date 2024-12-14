@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# colorfast
+# colorfast <img src="man/figures/logo.png" align="right" height=230/>
 
 <!-- badges: start -->
 
@@ -90,11 +90,11 @@ res_col <- bench::mark(
 knitr::kable(res_col[,1:5])
 ```
 
-| expression  |   min |  median |    itr/sec | mem_alloc |
-|:------------|------:|--------:|-----------:|----------:|
-| baseR       |  16ms |  16.2ms |   61.20955 |     313KB |
-| {farver}    | 565µs | 584.7µs | 1693.54224 |     117KB |
-| {colorfast} | 137µs | 152.8µs | 6446.73896 |     156KB |
+| expression  |     min |  median |    itr/sec | mem_alloc |
+|:------------|--------:|--------:|-----------:|----------:|
+| baseR       |  16.1ms |  16.2ms |   61.75402 |     313KB |
+| {farver}    | 563.3µs | 582.6µs | 1696.09019 |     117KB |
+| {colorfast} | 135.3µs | 151.1µs | 6493.78611 |     156KB |
 
 ``` r
 
@@ -136,9 +136,9 @@ knitr::kable(res_hex[,1:5])
 
 | expression  |      min |   median |   itr/sec | mem_alloc |
 |:------------|---------:|---------:|----------:|----------:|
-| baseR       |   2.82ms |   3.07ms |  323.3098 |    3.05MB |
-| {farver}    | 881.75µs |   1.06ms |  942.5805 |    3.05MB |
-| {colorfast} | 394.17µs | 482.16µs | 2074.9445 |    1.53MB |
+| baseR       |   2.83ms |   3.01ms |  329.9474 |    3.05MB |
+| {farver}    | 889.95µs |   1.05ms |  942.0202 |    3.05MB |
+| {colorfast} | 394.21µs | 468.38µs | 2112.3117 |    1.53MB |
 
 ``` r
 
@@ -168,8 +168,8 @@ knitr::kable(res_int[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 793µs |  844µs | 1173.727 |     397KB |
-| {colorfast} | 422µs |  454µs | 2167.150 |     391KB |
+| {farver}    | 795µs |  833µs | 1187.008 |     397KB |
+| {colorfast} | 422µs |  455µs | 2166.184 |     391KB |
 
 </details>
 

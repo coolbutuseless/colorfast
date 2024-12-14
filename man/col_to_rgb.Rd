@@ -16,8 +16,8 @@ An integer matrix with four rows and number of columns
   the length of the input.
 }
 \description{
-This is a replacement for \code{grDevices::col2rgb()}, and can be
-100 times faster.
+This is a faster replacement for \code{grDevices::col2rgb()} which uses 
+a hash lookup of R color names (rather than a linear search).
 }
 \examples{
 col_to_rgb(c("hotpink", "#abc", "#abcd", "#aabb99", "#aabb9980"))
