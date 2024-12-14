@@ -92,9 +92,9 @@ knitr::kable(res_col[,1:5])
 
 | expression  |     min |  median |    itr/sec | mem_alloc |
 |:------------|--------:|--------:|-----------:|----------:|
-| baseR       |  16.1ms |  16.2ms |   61.75402 |     313KB |
-| {farver}    | 563.3µs | 582.6µs | 1696.09019 |     117KB |
-| {colorfast} | 135.3µs | 151.1µs | 6493.78611 |     156KB |
+| baseR       |  16.1ms |  16.2ms |   61.52921 |     313KB |
+| {farver}    | 563.1µs | 580.9µs | 1704.53110 |     117KB |
+| {colorfast} | 135.8µs | 151.2µs | 6519.31602 |     156KB |
 
 ``` r
 
@@ -134,11 +134,11 @@ res_hex <- bench::mark(
 knitr::kable(res_hex[,1:5])
 ```
 
-| expression  |      min |   median |   itr/sec | mem_alloc |
-|:------------|---------:|---------:|----------:|----------:|
-| baseR       |   2.83ms |   3.01ms |  329.9474 |    3.05MB |
-| {farver}    | 889.95µs |   1.05ms |  942.0202 |    3.05MB |
-| {colorfast} | 394.21µs | 468.38µs | 2112.3117 |    1.53MB |
+| expression  |      min | median |   itr/sec | mem_alloc |
+|:------------|---------:|-------:|----------:|----------:|
+| baseR       |   2.87ms | 3.04ms |  326.4886 |    3.05MB |
+| {farver}    | 892.16µs | 1.06ms |  942.9869 |    3.05MB |
+| {colorfast} | 394.46µs |  483µs | 2067.7688 |    1.53MB |
 
 ``` r
 
@@ -168,8 +168,8 @@ knitr::kable(res_int[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 795µs |  833µs | 1187.008 |     397KB |
-| {colorfast} | 422µs |  455µs | 2166.184 |     391KB |
+| {farver}    | 795µs |  843µs | 1178.234 |     397KB |
+| {colorfast} | 422µs |  447µs | 2217.669 |     391KB |
 
 </details>
 
