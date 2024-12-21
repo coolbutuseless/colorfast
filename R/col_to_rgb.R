@@ -28,7 +28,7 @@ col_to_rgb <- function(col) {
 #' @inheritParams col_to_rgb
 #' 
 #' @return Integer vector where the 4 bytes making up each integer represent 
-#'   the RGBA values of the colour
+#'   the RGBA values of the color
 #' @examples
 #' col_to_int(c("hotpink", "#abc", "#abcd", "#aabb99", "#aabb9980"))
 #' @export
@@ -46,7 +46,7 @@ col_to_int <- function(col) {
 #' Packed RGBA values are used in R's native raster objects.
 #' 
 #' @param icol Integer vector (where the 4 bytes making up each integer represent 
-#'   the RGBA values of the colour)
+#'   the RGBA values of the color)
 #' 
 #' @return Character vector 
 #' @examples

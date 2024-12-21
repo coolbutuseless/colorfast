@@ -8,7 +8,7 @@ int_to_col(icol)
 }
 \arguments{
 \item{icol}{Integer vector (where the 4 bytes making up each integer represent 
-the RGBA values of the colour)}
+the RGBA values of the color)}
 }
 \value{
 Character vector
