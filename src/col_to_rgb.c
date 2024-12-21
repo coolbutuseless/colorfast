@@ -821,7 +821,7 @@ static int col_int[][4] = {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Core C function
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void col_to_rgb(const char *col, int *ptr) {
+void col_to_rgb(const char *col, int ptr[4]) {
   if (col[0] == '#') {
     switch(strlen(col)) {
     case 9: 
