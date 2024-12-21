@@ -14,6 +14,13 @@ static const R_CallMethodDef CEntries[] = {
 };
 
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Make the C code available to other packages
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+extern void col_to_rgb(const char *col, int ptr[4]);
+extern uint32_t col_to_int(const char *col); 
+
 void R_init_colorfast(DllInfo *info) {
   R_registerRoutines(
     info,      // DllInfo
@@ -23,7 +30,7 @@ void R_init_colorfast(DllInfo *info) {
     NULL       // External
   );
   R_useDynamicSymbols(info, FALSE);
+  
+  R_RegisterCCallable("colorfast", "col_to_rgb", (DL_FUNC) &col_to_rgb);
+  R_RegisterCCallable("colorfast", "col_to_int", (DL_FUNC) &col_to_int);
 }
-
-
-
