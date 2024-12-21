@@ -92,9 +92,9 @@ knitr::kable(res_col[,1:5])
 
 | expression  |   min |  median |    itr/sec | mem_alloc |
 |:------------|------:|--------:|-----------:|----------:|
-| baseR       |  16ms |  16.2ms |   61.57898 |     313KB |
-| {farver}    | 565µs | 582.3µs | 1696.85656 |     117KB |
-| {colorfast} | 137µs | 150.4µs | 6553.34407 |     156KB |
+| baseR       |  16ms |  16.2ms |   61.71061 |     313KB |
+| {farver}    | 559µs | 576.7µs | 1716.16918 |     117KB |
+| {colorfast} | 145µs | 154.8µs | 6343.50032 |     156KB |
 
 ``` r
 
@@ -136,9 +136,9 @@ knitr::kable(res_hex[,1:5])
 
 | expression  |      min |   median |   itr/sec | mem_alloc |
 |:------------|---------:|---------:|----------:|----------:|
-| baseR       |   2.88ms |   3.04ms |  326.2789 |    3.05MB |
-| {farver}    | 919.92µs |   1.04ms |  949.1179 |    3.05MB |
-| {colorfast} | 394.62µs | 485.69µs | 2035.1763 |    1.53MB |
+| baseR       |   2.82ms |   2.97ms |  335.7427 |    3.05MB |
+| {farver}    | 962.88µs |   1.05ms |  949.2501 |    3.05MB |
+| {colorfast} | 478.22µs | 569.02µs | 1745.7231 |    1.53MB |
 
 ``` r
 
@@ -168,8 +168,8 @@ knitr::kable(res_int[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 796µs |  847µs | 1176.838 |     397KB |
-| {colorfast} | 422µs |  450µs | 2198.984 |     391KB |
+| {farver}    | 795µs |  826µs | 1196.536 |     397KB |
+| {colorfast} | 506µs |  528µs | 1876.432 |     391KB |
 
 ``` r
 
@@ -197,8 +197,8 @@ knitr::kable(res_int2[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 552µs |  572µs | 1738.074 |    39.1KB |
-| {colorfast} | 134µs |  142µs | 6954.672 |    39.1KB |
+| {farver}    | 547µs |  558µs | 1776.052 |    39.1KB |
+| {colorfast} | 143µs |  147µs | 6693.580 |    39.1KB |
 
 </details>
 

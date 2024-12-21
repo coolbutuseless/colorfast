@@ -13,7 +13,7 @@ col_to_int(col)
 }
 \value{
 Integer vector where the 4 bytes making up each integer represent 
-  the RGBA values of the colour
+  the RGBA values of the color
 }
 \description{
 Packed RGBA values are used in R's native raster objects.
