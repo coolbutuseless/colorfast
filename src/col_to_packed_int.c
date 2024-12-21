@@ -714,6 +714,75 @@ static uint32_t packed_int[659] = {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Core C function
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+uint32_t col_to_int(const char *col) {
+  if (col[0] == '#') {
+    switch (strlen(col)) {
+    case 4:  // #123 == #112233
+      return
+        0xFF000000u + 
+        (uint32_t)(hex2nibble(col[3]) << 20) +
+        (uint32_t)(hex2nibble(col[3]) << 16) +
+        (uint32_t)(hex2nibble(col[2]) << 12) +
+        (uint32_t)(hex2nibble(col[2]) <<  8) +
+        (uint32_t)(hex2nibble(col[1]) <<  4) +
+        (uint32_t)(hex2nibble(col[1]) <<  0);
+      break;
+    case 5: // #1234 = #11223344
+      return
+        ((uint32_t)(hex2nibble(col[4])) << 28) +
+        (uint32_t)(hex2nibble(col[4]) << 24) +
+        (uint32_t)(hex2nibble(col[3]) << 20) +
+        (uint32_t)(hex2nibble(col[3]) << 16) +
+        (uint32_t)(hex2nibble(col[2]) << 12) +
+        (uint32_t)(hex2nibble(col[2]) <<  8) +
+        (uint32_t)(hex2nibble(col[1]) <<  4) +
+        (uint32_t)(hex2nibble(col[1]) <<  0);
+      break;
+    case 7: // #rrggbb
+      return
+        0xFF000000u + 
+        (uint32_t)(hex2nibble(col[5]) << 20) +
+        (uint32_t)(hex2nibble(col[6]) << 16) +
+        (uint32_t)(hex2nibble(col[3]) << 12) +
+        (uint32_t)(hex2nibble(col[4]) <<  8) +
+        (uint32_t)(hex2nibble(col[1]) <<  4) +
+        (uint32_t)(hex2nibble(col[2]) <<  0);
+      break;
+    case 9: // #rrggbbaa
+      return
+        ((uint32_t)(hex2nibble(col[7])) << 28) +
+        (uint32_t)(hex2nibble(col[8]) << 24) +
+        (uint32_t)(hex2nibble(col[5]) << 20) +
+        (uint32_t)(hex2nibble(col[6]) << 16) +
+        (uint32_t)(hex2nibble(col[3]) << 12) +
+        (uint32_t)(hex2nibble(col[4]) <<  8) +
+        (uint32_t)(hex2nibble(col[1]) <<  4) +
+        (uint32_t)(hex2nibble(col[2]) <<  0);
+      break;
+    default:
+      Rf_error("col_to_int_(): Hex notation error: %s", col);
+    }
+  } else {
+    
+    int idx = hash_color((const unsigned char *)col);
+    // don't need to do a full string comparison, as the probability of
+    // an incorrect color name (e.g. 'bluexx') hashing to a color
+    // that starts with 'blu' seems incredibly remote.  
+    // Probably worth testing though to figure out what is needed to 
+    // actually cause a collision here. (and how much of the strings should
+    // be compared to detect it)
+    if (idx < 0 || idx > 658 || memcmp(col, col_name[idx], 2) != 0) {
+      Rf_error("col_to_int_(): Not a valid color name: %s", col);
+    }
+    return packed_int[idx];
+  }
+}
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Convert a character vector of R colors to 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 SEXP col_to_int_(SEXP cols_) {
@@ -730,67 +799,7 @@ SEXP col_to_int_(SEXP cols_) {
   for(int i = 0; i < n; i++) {
     const char *col = CHAR(STRING_ELT(cols_, i));
     
-    if (col[0] == '#') {
-      switch (strlen(col)) {
-      case 4:  // #123 == #112233
-        ptr[i] =
-          0xFF000000u + 
-          (uint32_t)(hex2nibble(col[3]) << 20) +
-          (uint32_t)(hex2nibble(col[3]) << 16) +
-          (uint32_t)(hex2nibble(col[2]) << 12) +
-          (uint32_t)(hex2nibble(col[2]) <<  8) +
-          (uint32_t)(hex2nibble(col[1]) <<  4) +
-          (uint32_t)(hex2nibble(col[1]) <<  0);
-        break;
-      case 5: // #1234 = #11223344
-        ptr[i] =
-          ((uint32_t)(hex2nibble(col[4])) << 28) +
-          (uint32_t)(hex2nibble(col[4]) << 24) +
-          (uint32_t)(hex2nibble(col[3]) << 20) +
-          (uint32_t)(hex2nibble(col[3]) << 16) +
-          (uint32_t)(hex2nibble(col[2]) << 12) +
-          (uint32_t)(hex2nibble(col[2]) <<  8) +
-          (uint32_t)(hex2nibble(col[1]) <<  4) +
-          (uint32_t)(hex2nibble(col[1]) <<  0);
-        break;
-      case 7: // #rrggbb
-        ptr[i] =
-          0xFF000000u + 
-          (uint32_t)(hex2nibble(col[5]) << 20) +
-          (uint32_t)(hex2nibble(col[6]) << 16) +
-          (uint32_t)(hex2nibble(col[3]) << 12) +
-          (uint32_t)(hex2nibble(col[4]) <<  8) +
-          (uint32_t)(hex2nibble(col[1]) <<  4) +
-          (uint32_t)(hex2nibble(col[2]) <<  0);
-        break;
-      case 9: // #rrggbbaa
-        ptr[i] =
-          ((uint32_t)(hex2nibble(col[7])) << 28) +
-          (uint32_t)(hex2nibble(col[8]) << 24) +
-          (uint32_t)(hex2nibble(col[5]) << 20) +
-          (uint32_t)(hex2nibble(col[6]) << 16) +
-          (uint32_t)(hex2nibble(col[3]) << 12) +
-          (uint32_t)(hex2nibble(col[4]) <<  8) +
-          (uint32_t)(hex2nibble(col[1]) <<  4) +
-          (uint32_t)(hex2nibble(col[2]) <<  0);
-        break;
-      default:
-        Rf_error("col_to_int_(): Hex notation error: %s", col);
-      }
-    } else {
-      
-      int idx = hash_color((const unsigned char *)col);
-      // don't need to do a full string comparison, as the probability of
-      // an incorrect color name (e.g. 'bluexx') hashing to a color
-      // that starts with 'blu' seems incredibly remote.  
-      // Probably worth testing though to figure out what is needed to 
-      // actually cause a collision here. (and how much of the strings should
-      // be compared to detect it)
-      if (idx < 0 || idx > 658 || memcmp(col, col_name[idx], 2) != 0) {
-        Rf_error("col_to_int_(): Not a valid color name: %s", col);
-      }
-      ptr[i] = packed_int[idx];
-    }
+    ptr[i] = col_to_int(col);
   }
   
   

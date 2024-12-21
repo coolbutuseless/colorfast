@@ -92,9 +92,9 @@ knitr::kable(res_col[,1:5])
 
 | expression  |   min |  median |    itr/sec | mem_alloc |
 |:------------|------:|--------:|-----------:|----------:|
-| baseR       |  16ms |  16.2ms |   61.57898 |     313KB |
-| {farver}    | 565µs | 582.3µs | 1696.85656 |     117KB |
-| {colorfast} | 137µs | 150.4µs | 6553.34407 |     156KB |
+| baseR       |  16ms |  16.2ms |   61.44687 |     313KB |
+| {farver}    | 568µs | 586.8µs | 1691.64261 |     117KB |
+| {colorfast} | 148µs | 157.1µs | 6288.31832 |     156KB |
 
 ``` r
 
@@ -134,11 +134,11 @@ res_hex <- bench::mark(
 knitr::kable(res_hex[,1:5])
 ```
 
-| expression  |      min |   median |   itr/sec | mem_alloc |
-|:------------|---------:|---------:|----------:|----------:|
-| baseR       |   2.88ms |   3.04ms |  326.2789 |    3.05MB |
-| {farver}    | 919.92µs |   1.04ms |  949.1179 |    3.05MB |
-| {colorfast} | 394.62µs | 485.69µs | 2035.1763 |    1.53MB |
+| expression  |     min |   median |   itr/sec | mem_alloc |
+|:------------|--------:|---------:|----------:|----------:|
+| baseR       |   2.8ms |   2.98ms |  332.0594 |    3.05MB |
+| {farver}    | 894.8µs |   1.04ms |  953.7226 |    3.05MB |
+| {colorfast} | 478.8µs | 540.95µs | 1821.1662 |    1.53MB |
 
 ``` r
 
@@ -168,8 +168,8 @@ knitr::kable(res_int[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 796µs |  847µs | 1176.838 |     397KB |
-| {colorfast} | 422µs |  450µs | 2198.984 |     391KB |
+| {farver}    | 799µs |  832µs | 1189.928 |     397KB |
+| {colorfast} | 506µs |  535µs | 1831.527 |     391KB |
 
 ``` r
 
@@ -197,8 +197,8 @@ knitr::kable(res_int2[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 552µs |  572µs | 1738.074 |    39.1KB |
-| {colorfast} | 134µs |  142µs | 6954.672 |    39.1KB |
+| {farver}    | 548µs |  559µs | 1776.747 |    39.1KB |
+| {colorfast} | 144µs |  148µs | 6624.740 |    39.1KB |
 
 </details>
 
