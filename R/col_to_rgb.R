@@ -36,3 +36,24 @@ col_to_rgb <- function(col) {
 col_to_int <- function(col) {
   .Call(col_to_int_, col)
 }
+
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Fast conversion of colors-as-packed-RGBA-integers to hexadecimal 
+#' 
+#' Packed RGBA values are used in R's native raster objects.
+#' 
+#' @param icol Integer vector (where the 4 bytes making up each integer represent 
+#'   the RGBA values of the colour)
+#' 
+#' @return Character vector 
+#' @examples
+#' icols <- col_to_int(c("hotpink", "#abc", "#abcd", "#aabb99", "#aabb9980"))
+#' int_to_col(icols)
+#' @export
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+int_to_col <- function(icol) {
+  .Call(int_to_col_, icol)
+}

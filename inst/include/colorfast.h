@@ -37,3 +37,16 @@ static inline uint32_t col_to_int(const char *col) {
   return fun(col);
 }
 
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// void int_to_col(uint32_t icol, char buf[10]);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+static inline void int_to_col(uint32_t icol, char buf[10]) {
+  static void (*fun)(uint32_t,  char[10]) = NULL;
+  
+  if (fun == NULL) {
+    fun = (void (*)(uint32_t, char[10])) R_GetCCallable("colorfast", "int_to_col");
+  }
+  
+  fun(icol, buf);
+}

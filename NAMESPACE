@@ -2,4 +2,5 @@
 
 export(col_to_int)
 export(col_to_rgb)
+export(int_to_col)
 useDynLib(colorfast, .registration=TRUE)

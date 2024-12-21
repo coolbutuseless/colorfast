@@ -5,11 +5,13 @@
 
 extern SEXP col_to_rgb_(SEXP cols_);
 extern SEXP col_to_int_(SEXP cols_);
+extern SEXP int_to_col_(SEXP icols_);
 
 static const R_CallMethodDef CEntries[] = {
   
   {"col_to_rgb_", (DL_FUNC) &col_to_rgb_, 1},
   {"col_to_int_", (DL_FUNC) &col_to_int_, 1},
+  {"int_to_col_", (DL_FUNC) &int_to_col_, 1},
   {NULL , NULL, 0}
 };
 
@@ -18,8 +20,9 @@ static const R_CallMethodDef CEntries[] = {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Make the C code available to other packages
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-extern void col_to_rgb(const char *col, int ptr[4]);
+extern void     col_to_rgb(const char *col, int ptr[4]);
 extern uint32_t col_to_int(const char *col); 
+extern void     int_to_col(uint32_t icol, char buf[10]);
 
 void R_init_colorfast(DllInfo *info) {
   R_registerRoutines(
@@ -33,4 +36,5 @@ void R_init_colorfast(DllInfo *info) {
   
   R_RegisterCCallable("colorfast", "col_to_rgb", (DL_FUNC) &col_to_rgb);
   R_RegisterCCallable("colorfast", "col_to_int", (DL_FUNC) &col_to_int);
+  R_RegisterCCallable("colorfast", "int_to_col", (DL_FUNC) &int_to_col);
 }
