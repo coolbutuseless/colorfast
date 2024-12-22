@@ -1,0 +1,96 @@
+---
+title: "C API"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{C API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(colorfast)
+```
+
+`{colorfast}` exports three C functions for use in other packages.
+
+To use these functions:
+
+* In your package `DESCRIPTION`
+    * Add `LinkingTo: colorfast` 
+    * Add `Depends: colorfast (>= 1.0.0.9000)`
+* In your C code
+    * Add `#include <colorfast.h>`
+    * Call the functions below
+
+```
+void col_to_rgb(const char *col, int ptr[4]);
+uint32_t col_to_int(const char *col); 
+void int_to_col(uint32_t icol, char buf[10]);
+```
+
+
+## String colour to vector of RGBA values 
+
+`void col_to_rgb(const char *col, int ptr[4])`
+
+The following is equivalent to: `col_to_rgb('red')`
+
+``` c
+#include <colorfast.h>
+
+void custom_c_function(const char *col) {
+  int values[4];
+  col_to_rgb(col, values);
+  ...
+}
+```
+
+
+
+## String colour to packed integer colour 
+
+`void col_to_int(const char *col)`
+
+The following is equivalent to: `col_to_int('red')`
+
+``` c
+#include <colorfast.h>
+
+void custom_c_function(const char *col) {
+  uint32_t value = col_to_int(col);
+  ...
+}
+```
+
+
+## String colour to packed integer colour 
+
+`void col_to_int(const char *col)`
+
+The following is equivalent to: `int_to_col(123877L)`
+
+``` c
+#include <colorfast.h>
+
+void custom_c_function(uint32_t icol) {
+   char buf[10]
+   int_to_col(icol, buf);
+  ...
+}
+```
+
+
+
+
+
+
+
+
+

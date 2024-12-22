@@ -3,6 +3,8 @@
 #include <R.h>
 #include <Rinternals.h>
 
+#include <stdint.h>
+
 extern SEXP col_to_rgb_(SEXP cols_);
 extern SEXP col_to_int_(SEXP cols_);
 extern SEXP int_to_col_(SEXP icols_);
