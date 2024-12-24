@@ -14,6 +14,8 @@ Description: Color values in R are often represented as strings of hexadecimal
     derived from Majewski et al (1996) "A Family of Perfect Hashing Methods" 
     <doi:10.1093/comjnl/39.6.547>.
 License: MIT + file LICENSE
+URL: https://github.com/coolbutuseless/colorfast
+BugReports: https://github.com/coolbutuseless/colorfast/issues
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 Suggests: 
