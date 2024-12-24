@@ -712,6 +712,10 @@ static uint32_t packed_int[659] = {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #define hex2nibble(x) ( (((x) & 0xf) + ((x) >> 6) + ((x >> 6) << 3)) & 0xf )
 
+#define CF_RED(col)    (((col) >>  0) & 0xFF)
+#define CF_GREEN(col)  (((col) >>  8) & 0xFF)
+#define CF_BLUE(col)   (((col) >> 16) & 0xFF)
+#define CF_ALPHA(col)  (((col) >> 24) & 0xFF)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Core C function

@@ -2,7 +2,7 @@ Type: Package
 Package: colorfast
 Title: Fast Conversion of R Colors to Color Component Values and
     Native Packed Integer Format
-Version: 1.0.0.9000
+Version: 1.0.0.9001
 Authors@R: 
     person("Mike", "Cheng", , "mikefc@coolbutuseless.com", role = c("aut", "cre", "cph"))
 Maintainer: Mike Cheng <mikefc@coolbutuseless.com>

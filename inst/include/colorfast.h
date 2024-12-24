@@ -11,6 +11,10 @@
 #include <unistd.h>
 #include <stdint.h>
 
+#define CF_RED(col)    (((col) >>  0) & 0xFF)
+#define CF_GREEN(col)  (((col) >>  8) & 0xFF)
+#define CF_BLUE(col)   (((col) >> 16) & 0xFF)
+#define CF_ALPHA(col)  (((col) >> 24) & 0xFF)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // void col_to_rgb(const char *col, int ptr[4]);
