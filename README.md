@@ -7,6 +7,8 @@
 
 ![](https://img.shields.io/badge/cool-useless-green.svg)
 [![R-CMD-check](https://github.com/coolbutuseless/colorfast/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/colorfast/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/colorfast)](https://CRAN.R-project.org/package=colorfast)
 <!-- badges: end -->
 
 `{colorfast}` is a package for converting R colors and hexadecimal
@@ -16,18 +18,32 @@ native rasters).
 ### What’s in the box
 
 - `col_to_rgb()` a faster version of `col2rgb()`
-- `col_to_int()` for conversion of colors to packed integer format used
-  in native rasters (4 bytes for each RGBA color channel are packed into
-  a single R integer)
+- `col_to_int()` convert colors to packed integer format used in native
+  rasters (4 bytes for each RGBA color channel are packed into a single
+  R integer)
+- `int_to_col()` convert a packed integer color to a hexadecimal color
 
 ## Installation
 
-You can install from
+This package can be installed from CRAN
+
+``` r
+install.packages('colorfast')
+```
+
+You can install the latest development version from
 [GitHub](https://github.com/coolbutuseless/colorfast) with:
 
 ``` r
 # install.package('remotes')
 remotes::install_github('coolbutuseless/colorfast')
+```
+
+Pre-built source/binary versions can also be installed from
+[R-universe](https://r-universe.dev)
+
+``` r
+install.packages('colorfast', repos = c('https://coolbutuseless.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Example
@@ -92,9 +108,9 @@ knitr::kable(res_col[,1:5])
 
 | expression  |   min |  median |    itr/sec | mem_alloc |
 |:------------|------:|--------:|-----------:|----------:|
-| baseR       |  16ms |  16.2ms |   61.71061 |     313KB |
-| {farver}    | 559µs | 576.7µs | 1716.16918 |     117KB |
-| {colorfast} | 145µs | 154.8µs | 6343.50032 |     156KB |
+| baseR       |  16ms |  16.1ms |   62.03842 |     313KB |
+| {farver}    | 571µs | 587.5µs | 1688.09767 |     117KB |
+| {colorfast} | 148µs | 159.2µs | 6184.42517 |     156KB |
 
 ``` r
 
@@ -136,9 +152,9 @@ knitr::kable(res_hex[,1:5])
 
 | expression  |      min |   median |   itr/sec | mem_alloc |
 |:------------|---------:|---------:|----------:|----------:|
-| baseR       |   2.82ms |   2.97ms |  335.7427 |    3.05MB |
-| {farver}    | 962.88µs |   1.05ms |  949.2501 |    3.05MB |
-| {colorfast} | 478.22µs | 569.02µs | 1745.7231 |    1.53MB |
+| baseR       |   2.81ms |      3ms |  332.8065 |    3.05MB |
+| {farver}    | 886.05µs |   1.07ms |  932.8691 |    3.05MB |
+| {colorfast} | 478.43µs | 566.46µs | 1754.0460 |    1.53MB |
 
 ``` r
 
@@ -168,8 +184,8 @@ knitr::kable(res_int[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 795µs |  826µs | 1196.536 |     397KB |
-| {colorfast} | 506µs |  528µs | 1876.432 |     391KB |
+| {farver}    | 795µs |  834µs | 1190.969 |     397KB |
+| {colorfast} | 506µs |  535µs | 1844.367 |     391KB |
 
 ``` r
 
@@ -197,8 +213,8 @@ knitr::kable(res_int2[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 547µs |  558µs | 1776.052 |    39.1KB |
-| {colorfast} | 143µs |  147µs | 6693.580 |    39.1KB |
+| {farver}    | 552µs |  564µs | 1759.067 |    39.1KB |
+| {colorfast} | 144µs |  149µs | 6625.091 |    39.1KB |
 
 </details>
 

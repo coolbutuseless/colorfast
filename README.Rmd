@@ -25,6 +25,7 @@ library(farver)
 <!-- badges: start -->
 ![](https://img.shields.io/badge/cool-useless-green.svg)
 [![R-CMD-check](https://github.com/coolbutuseless/colorfast/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/coolbutuseless/colorfast/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/colorfast)](https://CRAN.R-project.org/package=colorfast)
 <!-- badges: end -->
 
 `{colorfast}` is a package for converting R colors and hexadecimal colors
@@ -34,18 +35,33 @@ to arrays of RGBA values, and packed integer format (suitable for native rasters
 ### What's in the box
 
 * `col_to_rgb()` a faster version of `col2rgb()` 
-* `col_to_int()` for conversion of colors to packed integer format used 
+* `col_to_int()` convert colors to packed integer format used 
   in native rasters (4 bytes for each RGBA color channel are packed into a
   single R integer)
+* `int_to_col()` convert a packed integer color to a hexadecimal color
 
 
 ## Installation
 
-You can install from [GitHub](https://github.com/coolbutuseless/colorfast) with:
+This package can be installed from CRAN
+
+``` r
+install.packages('colorfast')
+```
+
+You can install the latest development version from
+[GitHub](https://github.com/coolbutuseless/colorfast) with:
 
 ``` r
 # install.package('remotes')
 remotes::install_github('coolbutuseless/colorfast')
+```
+
+Pre-built source/binary versions can also be installed from
+[R-universe](https://r-universe.dev)
+
+``` r
+install.packages('colorfast', repos = c('https://coolbutuseless.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## Example
