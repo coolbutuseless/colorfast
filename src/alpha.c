@@ -27,14 +27,14 @@ SEXP set_alpha_(SEXP cols_, SEXP alpha_) {
   uint32_t lower = 0x00FFFFFFu;
   
   if (Rf_length(alpha_) == 1) {
-    uint32_t alpha = ((uint8_t)(Rf_asReal(alpha_) * 255)) << 24;
+    uint32_t alpha = ((uint32_t)(Rf_asReal(alpha_) * 255) & 255) << 24;
     for (int i = 0; i < N; ++i) {
       res[i] = (col[i] & lower) | alpha;
     }
   } else if (Rf_length(alpha_) == N) {
     double *alphas = REAL(alpha_);
     for (int i = 0; i < N; ++i) {
-      uint32_t alpha = ((uint8_t)(alphas[i] * 255)) << 24;
+      uint32_t alpha = ((uint32_t)(alphas[i] * 255) & 255) << 24;
       res[i] = (col[i] & lower) | alpha;
     }
     
