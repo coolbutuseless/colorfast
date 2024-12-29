@@ -57,3 +57,24 @@ col_to_int <- function(col) {
 int_to_col <- function(icol) {
   .Call(int_to_col_, icol)
 }
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Set alpha value of integer colors
+#' 
+#' @inheritParams int_to_col
+#' @param alpha numeric alpha value in range [0, 1]. Length of 1, or same length as 'col'
+#' @return integer vector of colors with adjusted alpha channel
+#' @examples
+#' col <- col_to_int('red')
+#' col
+#' set_alpha(col, 80)
+#' @export
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+set_alpha <- function(icol, alpha) {
+  .Call(set_alpha_, icol, alpha)
+}
+
+
+
+
