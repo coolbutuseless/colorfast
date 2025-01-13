@@ -14,7 +14,8 @@ test_that("string color conversion works", {
   
   set.seed(1)
   cols1 <- sample(colors(), 1000, T)
-  cols2 <- rgb(t(col2rgb(cols1)), maxColorValue = 255)
+  cols2 <- rgb(t(col2rgb(cols1, alpha = TRUE)), alpha = 255, maxColorValue = 255)
+  cols3 <- rgb(t(col2rgb(cols1, alpha = TRUE)), maxColorValue = 255)
   
   identical(
     grDevices::col2rgb(cols1, alpha = TRUE),
@@ -25,9 +26,26 @@ test_that("string color conversion works", {
     grDevices::col2rgb(cols2, alpha = TRUE),
     col_to_rgb(cols2)
   )
-  
-})
 
+  
+  cols2a <- int_to_col(col_to_int(cols2))
+  expect_identical(cols2a, cols2)
+  
+  cols3a <- int_to_col(col_to_int(cols3))
+  expect_identical(cols3a, cols2)
+  
+  
+  c1 <- c('#123', '#1234')
+  c1a <- int_to_col(col_to_int(c1))
+  expect_identical(c1a, c('#112233FF', '#11223344'))
+  
+    
+  val <- col_to_rgb(c('#123', '#1234', '#112233'))
+  exp <- structure(c(17L, 34L, 51L, 255L, 17L, 34L, 51L, 68L, 17L, 34L, 
+                     51L, 255L), dim = 4:3, dimnames = list(c("red", "green", "blue", 
+                                                              "alpha"), NULL))
+  expect_identical(val, exp)
+})
 
 
 test_that("conversion to native raster works", {
