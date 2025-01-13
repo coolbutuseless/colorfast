@@ -148,7 +148,7 @@ char *col_name[] = {
 //  apply(mat, 1, \(x) paste0("{", paste(x, collapse = ", "), "},")) |>
 //  cat(sep = "\n")
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-static int col_int[][4] = {
+static uint8_t col_int[][4] = {
   {255, 255, 255,   0}, // NA
   {255, 255, 255,   0}, // transparent
   {255, 255, 255, 255}, // white
@@ -821,7 +821,7 @@ static int col_int[][4] = {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Core C function
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void col_to_rgb(const char *col, int ptr[4]) {
+void col_to_rgb(const char *col, uint8_t ptr[4]) {
   if (col[0] == '#') {
     switch(strlen(col)) {
     case 9: 
@@ -863,7 +863,7 @@ void col_to_rgb(const char *col, int ptr[4]) {
     if (idx < 0 || idx > 658 || memcmp(col, col_name[idx], 2) != 0) {
       Rf_error("col_to_rgb_(): Not a valid color name: %s", col);
     }
-    memcpy(ptr, col_int[idx], 4 * sizeof(int));
+    memcpy(ptr, col_int[idx], 4 * sizeof(uint8_t));
   }
 }
 
@@ -919,7 +919,14 @@ SEXP col_to_rgb_(SEXP cols_) {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   for(int i = 0; i < n; i++) {
     const char *col = CHAR(STRING_ELT(cols_, i));
-    col_to_rgb(col, ptr);
+    uint8_t tmp[4];
+    col_to_rgb(col, tmp);
+    
+    ptr[0] = (int)tmp[0]; 
+    ptr[1] = (int)tmp[1]; 
+    ptr[2] = (int)tmp[2]; 
+    ptr[3] = (int)tmp[3]; 
+    
     ptr += 4;
   }
   

@@ -1,10 +1,10 @@
 
-# colorfast 1.0.0.9001
+# colorfast 1.0.1
 
-* [9001] Add macros `CF_RED()`, `CF_GREEN()`, `CF_BLUE()`, `CF_ALPHA()`
-* [9000] Add `int_to_col()`
-* [9000] Re-factor to allow for core C functions to be exported
-* [9000] CRAN Fix: double-quotes for paper name in DESCRIPTION
+* Exporting core C functions for access by other packages with `LinkingTo`
+* Export macros for accessing individual color components: 
+  `CF_RED()`, `CF_GREEN()`, `CF_BLUE()`, `CF_ALPHA()`
+* Add `int_to_col()` for converting integer value to hex colour
 
 # colorfast 1.0.0
 

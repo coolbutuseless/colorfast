@@ -19,11 +19,11 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // void col_to_rgb(const char *col, int ptr[4]);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-static inline void col_to_rgb(const char *col, int ptr[4]) {
-  static void (*fun)(const char *,  int[4]) = NULL;
+static inline void col_to_rgb(const char *col, uint8_t ptr[4]) {
+  static void (*fun)(const char *,  uint8_t[4]) = NULL;
   
   if (fun == NULL) {
-    fun = (void (*)(const char *, int[4])) R_GetCCallable("colorfast", "col_to_rgb");
+    fun = (void (*)(const char *, uint8_t[4])) R_GetCCallable("colorfast", "col_to_rgb");
   }
   
   fun(col, ptr);

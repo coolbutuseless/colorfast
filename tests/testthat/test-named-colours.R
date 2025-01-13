@@ -12,6 +12,7 @@ test_that("string color conversion works", {
 
 test_that("string color conversion works", {
   
+  set.seed(1)
   cols1 <- sample(colors(), 1000, T)
   cols2 <- rgb(t(col2rgb(cols1)), maxColorValue = 255)
   

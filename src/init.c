@@ -22,7 +22,7 @@ static const R_CallMethodDef CEntries[] = {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Make the C code available to other packages
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-extern void     col_to_rgb(const char *col, int ptr[4]);
+extern void     col_to_rgb(const char *col, uint8_t ptr[4]);
 extern uint32_t col_to_int(const char *col); 
 extern void     int_to_col(uint32_t icol, char buf[10]);
 
