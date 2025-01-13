@@ -66,9 +66,11 @@ int_to_col <- function(icol) {
 #' @param alpha numeric alpha value in range [0, 1]. Length of 1, or same length as 'col'
 #' @return integer vector of colors with adjusted alpha channel
 #' @examples
-#' col <- col_to_int('red')
-#' col
-#' set_alpha(col, 80)
+#' icol <- col_to_int('red')
+#' icol
+#' int_to_col(icol)
+#' icol2 <- set_alpha(icol, 0.5)
+#' int_to_col(icol2)
 #' @export
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set_alpha <- function(icol, alpha) {

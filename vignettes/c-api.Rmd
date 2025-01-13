@@ -36,7 +36,7 @@ void int_to_col(uint32_t icol, char buf[10]);
 ```
 
 
-## String colour to vector of RGBA values 
+## String color to vector of RGBA values 
 
 `void col_to_rgb(const char *col, uint8_t ptr[4])`
 
@@ -103,7 +103,7 @@ test()
 
 
 
-## String colour to packed integer colour 
+## String color to packed integer color 
 
 `void col_to_int(const char *col)`
 
@@ -156,7 +156,7 @@ test()
 ```
 
 
-## String colour to packed integer colour 
+## Packed integer color to hexadecimal color
 
 `void int_to_col(uint32_t icol, char buf[10])`
 

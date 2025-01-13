@@ -19,7 +19,9 @@ integer vector of colors with adjusted alpha channel
 Set alpha value of integer colors
 }
 \examples{
-col <- col_to_int('red')
-col
-set_alpha(col, 80)
+icol <- col_to_int('red')
+icol
+int_to_col(icol)
+icol2 <- set_alpha(icol, 0.5)
+int_to_col(icol2)
 }
