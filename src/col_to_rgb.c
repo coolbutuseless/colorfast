@@ -825,15 +825,15 @@ void col_to_rgb(const char *col, uint8_t ptr[4]) {
   if (col[0] == '#') {
     switch(strlen(col)) {
     case 9: 
-      ptr[0] = (hex2nibble(col[1]) << 4) + hex2nibble(col[2]);
-      ptr[1] = (hex2nibble(col[3]) << 4) + hex2nibble(col[4]);
-      ptr[2] = (hex2nibble(col[5]) << 4) + hex2nibble(col[6]);
-      ptr[3] = (hex2nibble(col[7]) << 4) + hex2nibble(col[8]);
+      ptr[0] = (uint8_t)( (hex2nibble(col[1]) << 4) + hex2nibble(col[2]) );
+      ptr[1] = (uint8_t)( (hex2nibble(col[3]) << 4) + hex2nibble(col[4]) );
+      ptr[2] = (uint8_t)( (hex2nibble(col[5]) << 4) + hex2nibble(col[6]) );
+      ptr[3] = (uint8_t)( (hex2nibble(col[7]) << 4) + hex2nibble(col[8]) );
       break;
     case 7: 
-      ptr[0] = (hex2nibble(col[1]) << 4) + hex2nibble(col[2]);
-      ptr[1] = (hex2nibble(col[3]) << 4) + hex2nibble(col[4]);
-      ptr[2] = (hex2nibble(col[5]) << 4) + hex2nibble(col[6]);
+      ptr[0] = (uint8_t)( (hex2nibble(col[1]) << 4) + hex2nibble(col[2]) );
+      ptr[1] = (uint8_t)( (hex2nibble(col[3]) << 4) + hex2nibble(col[4]) );
+      ptr[2] = (uint8_t)( (hex2nibble(col[5]) << 4) + hex2nibble(col[6]) );
       ptr[3] = 255;
       break;
     case 5: 
