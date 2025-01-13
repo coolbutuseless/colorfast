@@ -23,6 +23,13 @@ native rasters).
   R integer)
 - `int_to_col()` convert a packed integer color to a hexadecimal color
 
+#### C API
+
+The C-level functions for converting colors are now exported via the
+`LinkingTo` mechanism, which means other R packages can call the C
+functions provided by this package. See the “C API” vignette for more
+details.
+
 ## Installation
 
 This package can be installed from CRAN
@@ -108,9 +115,9 @@ knitr::kable(res_col[,1:5])
 
 | expression  |   min |  median |    itr/sec | mem_alloc |
 |:------------|------:|--------:|-----------:|----------:|
-| baseR       |  16ms |  16.1ms |   62.03842 |     313KB |
-| {farver}    | 571µs | 587.5µs | 1688.09767 |     117KB |
-| {colorfast} | 148µs | 159.2µs | 6184.42517 |     156KB |
+| baseR       |  16ms |  16.2ms |   61.51107 |     313KB |
+| {farver}    | 565µs | 585.4µs | 1690.73415 |     117KB |
+| {colorfast} | 148µs |   159µs | 6175.15787 |     156KB |
 
 ``` r
 
@@ -152,9 +159,9 @@ knitr::kable(res_hex[,1:5])
 
 | expression  |      min |   median |   itr/sec | mem_alloc |
 |:------------|---------:|---------:|----------:|----------:|
-| baseR       |   2.81ms |      3ms |  332.8065 |    3.05MB |
-| {farver}    | 886.05µs |   1.07ms |  932.8691 |    3.05MB |
-| {colorfast} | 478.43µs | 566.46µs | 1754.0460 |    1.53MB |
+| baseR       |   2.83ms |   3.02ms |  329.2867 |    3.05MB |
+| {farver}    |  885.6µs |   1.03ms |  955.3143 |    3.05MB |
+| {colorfast} | 478.51µs | 561.35µs | 1760.7057 |    1.53MB |
 
 ``` r
 
@@ -184,8 +191,8 @@ knitr::kable(res_int[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 795µs |  834µs | 1190.969 |     397KB |
-| {colorfast} | 506µs |  535µs | 1844.367 |     391KB |
+| {farver}    | 795µs |  840µs | 1180.887 |     397KB |
+| {colorfast} | 506µs |  536µs | 1777.459 |     391KB |
 
 ``` r
 
@@ -213,8 +220,8 @@ knitr::kable(res_int2[,1:5])
 
 | expression  |   min | median |  itr/sec | mem_alloc |
 |:------------|------:|-------:|---------:|----------:|
-| {farver}    | 552µs |  564µs | 1759.067 |    39.1KB |
-| {colorfast} | 144µs |  149µs | 6625.091 |    39.1KB |
+| {farver}    | 550µs |  563µs | 1747.400 |    39.1KB |
+| {colorfast} | 144µs |  149µs | 6584.385 |    39.1KB |
 
 </details>
 

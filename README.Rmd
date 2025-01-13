@@ -18,6 +18,20 @@ library(tidyr)
 library(ggbeeswarm)
 library(ggplot2)
 library(farver)
+
+if (FALSE) {
+  # Check for functions which do not have an @examples block for roxygen
+  system("grep -c examples man/*Rd", intern = TRUE) |> 
+    grep(":0$", x = _, value = TRUE)
+  
+  checkhelper::check_as_cran()
+  checkhelper::find_missing_tags()
+}
+
+
+if (FALSE) {
+  covr::report()
+}
 ```
 
 # colorfast <img src="man/figures/logo.png" align="right" height=230/>
@@ -39,6 +53,13 @@ to arrays of RGBA values, and packed integer format (suitable for native rasters
   in native rasters (4 bytes for each RGBA color channel are packed into a
   single R integer)
 * `int_to_col()` convert a packed integer color to a hexadecimal color
+
+#### C API
+
+The C-level functions for converting colors are now exported via the `LinkingTo`
+mechanism, which means other R packages can call the C functions provided by 
+this package. See the "C API" vignette for more details.
+
 
 
 ## Installation
