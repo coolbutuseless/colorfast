@@ -45,7 +45,20 @@ test_that("string color conversion works", {
                      51L, 255L), dim = 4:3, dimnames = list(c("red", "green", "blue", 
                                                               "alpha"), NULL))
   expect_identical(val, exp)
+  
+  
+  
+  allcols <- c(cols1, cols2, cols3)
+  expect_equal(
+    col_to_rgb(allcols)/255,
+    col_to_rgb_dbl(allcols)
+  )
+  
 })
+
+
+
+
 
 
 test_that("conversion to native raster works", {

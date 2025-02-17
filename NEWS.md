@@ -1,4 +1,9 @@
 
+
+# colorfast 1.0.1.9000
+
+* Add `col_to_rgb_dbl()`  (and add to C API)
+
 # colorfast 1.0.1
 
 * Exporting core C functions for access by other packages with `LinkingTo`

@@ -9,7 +9,7 @@
 #' @param col Character vector of color names. Supports all R color names
 #'        (e.g. "red", "hotpink") and hex colors of the form:  "#RRGGBBAA", 
 #'        "#RRGGBB", "#RGBA" and "#RGB".  
-#' @return An integer matrix with four rows and number of columns 
+#' @return An integer (or numeric) matrix with four rows and number of columns 
 #'   the length of the input.
 #' @examples
 #' col_to_rgb(c("hotpink", "#abc", "#abcd", "#aabb99", "#aabb9980"))
@@ -17,6 +17,15 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 col_to_rgb <- function(col) {
   .Call(col_to_rgb_, col)
+}
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname col_to_rgb
+#' @export
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+col_to_rgb_dbl <- function(col) {
+  .Call(col_to_rgb_dbl_, col)
 }
 
 

@@ -2,9 +2,12 @@
 % Please edit documentation in R/col_to_rgb.R
 \name{col_to_rgb}
 \alias{col_to_rgb}
+\alias{col_to_rgb_dbl}
 \title{Fast conversion of colors-as-strings to a matrix of RGBA integers}
 \usage{
 col_to_rgb(col)
+
+col_to_rgb_dbl(col)
 }
 \arguments{
 \item{col}{Character vector of color names. Supports all R color names
@@ -12,7 +15,7 @@ col_to_rgb(col)
 "#RRGGBB", "#RGBA" and "#RGB".}
 }
 \value{
-An integer matrix with four rows and number of columns 
+An integer (or numeric) matrix with four rows and number of columns 
   the length of the input.
 }
 \description{

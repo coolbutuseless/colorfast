@@ -2,6 +2,7 @@
 
 export(col_to_int)
 export(col_to_rgb)
+export(col_to_rgb_dbl)
 export(int_to_col)
 export(set_alpha)
 useDynLib(colorfast, .registration=TRUE)

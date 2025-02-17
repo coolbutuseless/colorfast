@@ -30,6 +30,19 @@ static inline void col_to_rgb(const char *col, uint8_t ptr[4]) {
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// void col_to_rgb_dbl(const char *col, double ptr[4]);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+static inline void col_to_rgb_dbl(const char *col, double ptr[4]) {
+  static void (*fun)(const char *,  double[4]) = NULL;
+  
+  if (fun == NULL) {
+    fun = (void (*)(const char *, double[4])) R_GetCCallable("colorfast", "col_to_rgb_dbl");
+  }
+  
+  fun(col, ptr);
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // uint32_t col_to_int(const char *col); 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static inline uint32_t col_to_int(const char *col) {
